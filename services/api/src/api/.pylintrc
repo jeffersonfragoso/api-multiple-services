@@ -1,0 +1,3 @@
+[MASTER]
+ignore=migrations
+ignored-classes=SQLAlchemy,scoped_session

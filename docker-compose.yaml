@@ -1,5 +1,12 @@
 version: "3"
 services:
+  database:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
   rabbitmq:
     image: rabbitmq:3.8.5-management
     ports:
@@ -44,3 +51,43 @@ services:
       RABBITMQ_PUBLISH_QUEUE: publish_numbers
       PUBLISH_TIME_MS: "500"
       PUBLISH_MIN_NUMBER: "100000"
+  api-consumer:
+    build: ./services/api
+    volumes:
+      - ./services/api:/code
+    depends_on:
+      - database
+      - rabbitmq
+      - even-numbers
+      - odd-numbers
+      - publish-numbers
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_QUEUE: publish_numbers
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+      DATABASE_HOST: database
+      FLASK_APP: api.wsgi:APP
+    command: ["python3", "/code/src/manage.py", "number_consumer"]
+  api:
+    build: ./services/api
+    volumes:
+      - ./services/api:/code
+    depends_on:
+      - database
+      - rabbitmq
+      - even-numbers
+      - odd-numbers
+      - publish-numbers
+      - api-consumer
+    ports:
+      - 8000:8000
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_QUEUE: publish_numbers
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+      DATABASE_HOST: database
+      FLASK_APP: api.wsgi:APP
