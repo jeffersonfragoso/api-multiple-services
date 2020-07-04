@@ -1,0 +1,31 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:3.8.5-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+  even-numbers:
+    build: ./services/generate_numbers
+    volumes:
+      - ./services/generate_numbers:/code
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_QUEUE: even_numbers
+      NUMBER_TYPE: even
+      RANGE_MIN: "0"
+      RANGE_MAX: "1000"
+  odd-numbers:
+    build: ./services/generate_numbers
+    volumes:
+      - ./services/generate_numbers:/code
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_QUEUE: odd_numbers
+      NUMBER_TYPE: odd
+      RANGE_MIN: "0"
+      RANGE_MAX: "1000"
