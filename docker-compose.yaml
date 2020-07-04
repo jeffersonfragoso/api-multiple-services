@@ -29,3 +29,18 @@ services:
       NUMBER_TYPE: odd
       RANGE_MIN: "0"
       RANGE_MAX: "1000"
+  publish-numbers:
+    build: ./services/publish_numbers
+    volumes:
+      - ./services/publish_numbers:/code
+    depends_on:
+      - rabbitmq
+      - even-numbers
+      - odd-numbers
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_EVEN_QUEUE: even_numbers
+      RABBITMQ_ODD_QUEUE: odd_numbers
+      RABBITMQ_PUBLISH_QUEUE: publish_numbers
+      PUBLISH_TIME_MS: "500"
+      PUBLISH_MIN_NUMBER: "100000"

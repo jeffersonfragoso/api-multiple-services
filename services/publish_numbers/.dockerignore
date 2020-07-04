@@ -1,0 +1,16 @@
+#files
+README.md
+Makefile
+Dockerfile
+*.git*
+*.docker*
+.pylintrc
+.venv
+.vscode
+
+#extensions
+*.yaml
+
+#folders
+*src/tests*
+*pip*
