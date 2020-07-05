@@ -18,8 +18,8 @@ class NumberConsumerCommand(Command):
 
     """
 
-    @classmethod
-    def _callback(cls, channel, method, _properties, body):
+    @staticmethod
+    def _callback(channel, method, _properties, body):
         """Callback function to received new messages from the broker
 
         :param channel: The channel
@@ -48,6 +48,9 @@ class NumberConsumerCommand(Command):
         channel.basic_ack(delivery_tag=method.delivery_tag)
 
     def run(self):
+        """Starting consuming the publish numbers
+
+        """
         LOGGER.debug('Creating connection with RabbitMQ host %s', RABBITMQ_HOST)
         connection = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_HOST))
         LOGGER.debug('Creating channel')

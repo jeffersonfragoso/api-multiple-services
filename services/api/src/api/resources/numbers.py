@@ -13,10 +13,11 @@ class NumbersResource(Resource):
 
     def __init__(self):
         """Create the Numbers Resource instance
+
         """
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument('offset', type=str)
-        self.parser.add_argument('limit', type=str)
+        self.parser.add_argument('offset', type=str, default=0)
+        self.parser.add_argument('limit', type=str, default=20)
 
     def get(self):
         """Get list of numbers
@@ -25,6 +26,7 @@ class NumbersResource(Resource):
         :rtype: dict
         """
         args = self.parser.parse_args()
+        print(args)
         count, query = NumbersModel.get_numbers(**args)
         return {
             'count': count, 'data': [model.number for model in query]

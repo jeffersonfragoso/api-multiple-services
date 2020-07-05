@@ -98,3 +98,6 @@ class GenerateNumbersServiceTestCase(TestCase):
             )
         mock_blocking_connection.return_value.channel.return_value. \
             start_consuming.assert_called_once_with()
+        mock_blocking_connection.return_value.channel.return_value. \
+            close.assert_called_once_with()
+        mock_blocking_connection.return_value.close.assert_called_once_with()
