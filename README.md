@@ -11,6 +11,8 @@ This project has the API Rest that receive numbers from multiple services using 
   + [Running](#running)
   + [Get the list of numbers from API](#get-the-list-of-numbers-from-api)
   + [Access the API documentation](#access-the-api-documentation)
+  + [Lint](#lint)
+  + [Tests](#tests)
 
 ## Requirements
 
@@ -76,3 +78,19 @@ Now, you will get the numbers from the 20th until the 40th number
 ## Access the API documentation
 
 You can access the API documentation and execute requests to the API by http://localhost:8000/apidocs/
+
+## Lint
+
+To check the lint of code
+
+``` console
+make lint
+```
+
+## Tests
+
+To execute the unit tests
+
+``` console
+make tests
+```
