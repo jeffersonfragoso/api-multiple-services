@@ -10,6 +10,7 @@ This project has the API Rest that receive numbers from multiple services using 
   + [Setup](#setup)
   + [Running](#running)
   + [Get the list of numbers from API](#get-the-list-of-numbers-from-api)
+  + [Access the API documentation](#access-the-api-documentation)
 
 ## Requirements
 
@@ -71,3 +72,7 @@ curl -X GET http://localhost:8000/numbers -d offset=20 -d limit=20
 ```
 
 Now, you will get the numbers from the 20th until the 40th number
+
+## Access the API documentation
+
+You can access the API documentation and execute requests to the API by http://localhost:8000/apidocs/

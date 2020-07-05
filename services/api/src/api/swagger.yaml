@@ -1,0 +1,7 @@
+swagger: "2.0"
+info:
+  contact:
+    email: luiz.ender@gmail.com
+  description: This project has the API Rest that receive numbers from multiple services using the RabbitMQ.
+  title: API to Publish Numbers using multiple services
+  version: "1.0.0"

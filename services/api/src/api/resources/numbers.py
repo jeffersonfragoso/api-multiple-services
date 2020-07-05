@@ -3,6 +3,7 @@
 """
 
 from flask_restful import Resource, reqparse
+from flasgger.utils import swag_from
 from api.models import NumbersModel
 
 
@@ -19,6 +20,7 @@ class NumbersResource(Resource):
         self.parser.add_argument('offset', type=str, default=0)
         self.parser.add_argument('limit', type=str, default=20)
 
+    @swag_from('numbers.yaml')
     def get(self):
         """Get list of numbers
 

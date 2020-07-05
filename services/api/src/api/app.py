@@ -6,6 +6,7 @@ This module has the App, Database configurations and Routes of API
 import logging
 from flask import Flask
 from flask_restful import Api
+from flasgger import Swagger
 from api.resources import NumbersResource
 
 LOGGER = logging.getLogger(__name__)
@@ -23,6 +24,8 @@ def create_app():
 
     flask_app = Flask(__name__)
     flask_api = Api(flask_app)
+
+    Swagger(flask_app, template_file='swagger.yaml')
 
     from api.core.database import init_database
     init_database(flask_app)
